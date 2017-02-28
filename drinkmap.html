@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <style>
 html, body {
   height: 100%;
@@ -52,8 +54,8 @@ const query = () => {
     createQuery('大苑子')
   ])
   .then((result) => result.reduce((arr, r) => arr.concat(r), []))
+  .then((result) => result.filter((r) => r))
   .then((places) => {
-    console.error(places);
     infoWindow.close();
     markers.forEach((marker) => {
       marker.setMap(null);
