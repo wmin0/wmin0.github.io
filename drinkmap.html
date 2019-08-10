@@ -35,7 +35,7 @@ const load = () => {
     map.setZoom(18);
     centerMarker.setPosition(pos);
   })
-}
+};
 
 const createQuery = (name) => {
   return new Promise((resolve, reject) => {
@@ -44,22 +44,25 @@ const createQuery = (name) => {
       name: name
     }, resolve);
   })
-}
+};
+
+const drinkList = [
+  // '50嵐',
+  // '茶湯會',
+  // '迷客夏',
+  // '大苑子',
+  '可不可',
+  '日日裝茶',
+];
 
 const query = () => {
-  return Promise.all([
-    createQuery('50嵐'),
-    createQuery('茶湯會'),
-    createQuery('迷客夏'),
-    createQuery('大苑子')
-  ])
+  return Promise.all(drinkList.map(createQuery))
   .then((result) => result.reduce((arr, r) => arr.concat(r), []))
   .then((result) => result.filter((r) => r))
   .then((places) => {
     infoWindow.close();
     markers.forEach((marker) => {
       marker.setMap(null);
-      google.maps.event.remove
     });
     markers = places.map((place) => {
       let marker = new google.maps.Marker({
@@ -74,7 +77,7 @@ const query = () => {
       return marker;
     });
   });
-}
+};
 
 let initMapPromise = new Promise((resolve, reject) => {
   window.initMap = () => {
