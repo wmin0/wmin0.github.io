@@ -21,8 +21,15 @@ let centerMarker = null;
 let placeService = null;
 let markers = [];
 let infoWindow = null;
+let defaultPos = {
+  lat:  25.0384535,
+  lng: 121.5190023,
+};
+let defaultZoom = 18;
 
 const load = () => {
+  map.setCenter(defaultPos);
+  map.setZoom(defaultZoom);
   return new Promise((resolve, reject) => {
     console.info('load request geolocation called')
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -33,9 +40,8 @@ const load = () => {
       lat: geo.coords.latitude,
       lng: geo.coords.longitude
     };
-    console.info('setCenter', pos)
+    console.info('set center', pos)
     map.setCenter(pos);
-    map.setZoom(18);
     centerMarker.setPosition(pos);
   })
   .catch((err) => {
