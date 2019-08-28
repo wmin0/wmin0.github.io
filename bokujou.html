@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<style>
+* {
+  box-sizing: border-box;
+}
+.grid {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-column-gap: 1vw;
+  grid-row-gap: 1vh;
+}
+.cell {
+  padding: 4vw;
+  border: 1px solid black;
+}
+.check1 {
+  background: #39C5BB;
+}
+.check2 {
+  background: #FFE212;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  let div = document.createElement('div')
+  div.classList.add('grid')
+  div.addEventListener('dragstart', (e) => { e.preventDefault() })
+  div.addEventListener('contextmenu', (e) => { e.preventDefault() })
+  document.body.appendChild(div)
+  let size = 7
+  for (let row = 0; row < size; ++row) {
+    for (let col = 0; col < size; ++col) {
+      let cell = document.createElement('div')
+      cell.classList.add('cell')
+      cell.addEventListener('mousedown', (e) => {
+        switch (e.button) {
+          case 0: {
+            e.target.classList.remove('check2')
+            e.target.classList.toggle('check1')
+          } break
+          case 2: {
+            e.target.classList.remove('check1')
+            e.target.classList.toggle('check2')
+          } break
+        }
+      })
+      cell.addEventListener('dragstart', (e) => { e.preventDefault() })
+      cell.addEventListener('contextmenu', (e) => { e.preventDefault() })
+      div.appendChild(cell)
+    }
+  }
+})
+</script>
+</head>
+<body>
+</body>
+</html>
